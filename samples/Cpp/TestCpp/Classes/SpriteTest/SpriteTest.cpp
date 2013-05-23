@@ -1697,11 +1697,16 @@ void SpriteFrameTest::onEnter()
     //
     // Animation using Sprite BatchNode
     //
-    m_pSprite1 = CCSprite::createWithSpriteFrameName("grossini_dance_01.png");
-    m_pSprite1->setPosition( ccp( s.width/2-80, s.height/2) );
+    m_pSprite10 = CCSprite::createWithSpriteFrameName("grossini_dance_01.png");
+    m_pSprite10->setPosition( ccp( s.width/2-80, s.height/2) );
+
+    m_pSprite11 = CCSprite::createWithSpriteFrameName("grossini_dance_01.png");
+    m_pSprite11->setPosition( ccp( s.width/2-80, s.height/2 - 100) );
+    m_pSprite11->setScale( 0.75f );
 
     CCSpriteBatchNode* spritebatch = CCSpriteBatchNode::create("animations/grossini.png");
-    spritebatch->addChild(m_pSprite1);
+    spritebatch->addChild(m_pSprite10);
+    spritebatch->addChild(m_pSprite11);
     addChild(spritebatch);
 
     CCArray* animFrames = CCArray::createWithCapacity(15);
@@ -1714,12 +1719,15 @@ void SpriteFrameTest::onEnter()
         animFrames->addObject(frame);
     }
 
-    CCAnimation* animation = CCAnimation::createWithSpriteFrames(animFrames, 0.3f);
-    m_pSprite1->runAction( CCRepeatForever::create( CCAnimate::create(animation) ) );
+    CCAnimation* animation1 = CCAnimation::createWithSpriteFrames(animFrames, 0.3f);
+    m_pSprite10->runAction( CCRepeatForever::create( CCAnimate::create(animation1) ) );
+
+    CCAnimation* animation11 = CCAnimation::createWithSpriteFrames(animFrames, 0.15f);
+    m_pSprite11->runAction( CCRepeatForever::create( CCAnimate::create(animation11) ) );
 
     // to test issue #732, uncomment the following line
-    m_pSprite1->setFlipX(false);
-    m_pSprite1->setFlipY(false);
+    m_pSprite10->setFlipX(false);
+    m_pSprite10->setFlipY(false);
 
     //
     // Animation using standard Sprite
@@ -1771,7 +1779,7 @@ void SpriteFrameTest::onExit()
 
 std::string SpriteFrameTest::title()
 {
-    return "Sprite vs. SpriteBatchNode animation";
+    return "SpriteBatchNode vs Sprite animation";
 }
 
 std::string SpriteFrameTest::subtitle()
@@ -1812,8 +1820,10 @@ void SpriteFrameTest::flipSprites(float dt)
             break;
     }
 
-    m_pSprite1->setFlipX(fx);
-    m_pSprite1->setFlipY(fy);
+    m_pSprite10->setFlipX(fx);
+    m_pSprite10->setFlipY(fy);
+    m_pSprite11->setFlipX(fx);
+    m_pSprite11->setFlipY(fy);
     m_pSprite2->setFlipX(fx);
     m_pSprite2->setFlipY(fy);
     //NSLog(@"flipX:%d, flipY:%d", fx, fy);

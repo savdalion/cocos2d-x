@@ -232,7 +232,8 @@ public:
     void startIn05Secs(float dt);
     void flipSprites(float dt);
 private:
-    CCSprite *m_pSprite1;
+    CCSprite *m_pSprite10;
+    CCSprite *m_pSprite11;
     CCSprite *m_pSprite2;
     int      m_nCounter;
 };
